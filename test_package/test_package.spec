@@ -14,16 +14,24 @@ Requires: dconf
 %description
 Test background image installation
 
-%install
-# mkdir -p %{buildroot}/%{_bindir}
-install -p -m 755 %{SOURCE1} %{_datadir}/khoi_trinh_wallpaper   
-# install -p -m 755 %{SOURCE1} %{buildroot}/%{_bindir}
-
 %files
-%{_bindir}/TCP118v1_by_Tiziano_Consonni.jpg
+%{_datadir}/kd_wallpaper/TCP118v1_by_Tiziano_Consonni.jpg
+
+%install
+mkdir -p %{buildroot}%{_datadir}/kd_wallpaper/
+# install -p -m 755 %{SOURCE1} %{_datadir}/kd_wallpaper
+install -D -p -m755 %{SOURCE1} %{buildroot}%{_datadir}/kd_wallpaper/
 
 %post
-dconf write /org/gnome/desktop/background/picture-uri "'file://%{_datadir}/khoi_trinh_wallpaper/TCP118v1_by_Tiziano_Consonni.jpg'"
+sudo cat << EOF >> /usr/share/glib-2.0/schemas/99_my_custom_settings.gschema.override
+[org.cinnamon.desktop.background]
+picture-uri='file:///usr/share/kd_wallpaper/TCP118v1_by_Tiziano_Consonni.jpg'
 
+[org.gnome.desktop.background]
+picture-uri='file:///usr/share/kd_wallpaper/TCP118v1_by_Tiziano_Consonni.jpg'
+EOF
+chmod a+rx /usr/share/kd_wallpaper/TCP118v1_by_Tiziano_Consonni.jpg
+chmod a+rx /usr/share/glib-2.0/schemas/99_my_custom_settings.gschema.override
+sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
 
 %changelog
