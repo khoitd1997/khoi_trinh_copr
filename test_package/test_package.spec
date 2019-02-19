@@ -15,14 +15,15 @@ Requires: dconf
 Test background image installation
 
 %install
-mkdir -p %{buildroot}/%{_bindir}
-install -p -m 755 %{SOURCE1} %{buildroot}/%{_bindir}
+# mkdir -p %{buildroot}/%{_bindir}
+install -p -m 755 %{SOURCE1} %{_datadir}/khoi_trinh_wallpaper   
+# install -p -m 755 %{SOURCE1} %{buildroot}/%{_bindir}
 
 %files
 %{_bindir}/TCP118v1_by_Tiziano_Consonni.jpg
 
 %post
-dconf write /org/gnome/desktop/background/picture-uri "'file://%{_bindir}/TCP118v1_by_Tiziano_Consonni.jpg'"
+dconf write /org/gnome/desktop/background/picture-uri "'file://%{_datadir}/khoi_trinh_wallpaper/TCP118v1_by_Tiziano_Consonni.jpg'"
 
 
 %changelog
